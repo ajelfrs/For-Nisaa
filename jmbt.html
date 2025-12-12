@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Kamu ❤️</title>
+    <style>
+        body {
+            background-color: #fce4ec;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        /* Style buat Card/Slide */
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 80%;
+            max-width: 400px;
+            display: none; /* Disembunyiin dulu */
+            animation: fadeIn 0.8s;
+            align-items: center;
+            align-content: center;
+        }
+
+        .card.active {
+            display: block; /* Cuma yang aktif yang muncul */
+        }
+
+        h2 { color: #d81b60; margin-bottom: 15px; }
+        p { color: #555; font-size: 1.1rem; line-height: 1.5; }
+
+        .btn-next {
+            background-color: #d81b60;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Style buat Bagian Akhir (Sama kayak kemaren) */
+        #final-screen {
+            display: none; /* Disembunyiin dulu */
+            flex-direction: column;
+            align-items: center;
+            animation: fadeIn 1s;
+            width: 100%;
+        }
+
+        .img-container {
+            width: 200px;
+            height: 200px;
+            background-color: white;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+        .img-last { width: 100%; height: 100%; object-fit: cover; }
+        .img-card {
+            border-style: solid;
+            border-color: #E87A7A;
+            border-radius: 100%;
+            border-width: 4px;
+            width: 80px;
+            height: 80px;
+        }
+        .gambar {
+            width: 70px;
+            height: 70px;
+        }
+        .buttons { margin-top: 20px; position: relative; width: 100%; height: 100px;}
+        .action-btn {
+            padding: 12px 25px;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        #btn-yes { background-color: #d81b60; color: white; }
+        #btn-no { background-color: #e0e0e0; color: #333; position: absolute; transition: 0.2s;}
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card active" id="slide1">
+      <center><div class="img-card">
+        <img src="pusn3.gif" class="gambar">
+      </div></center>
+        <h2>Alooo Sayanggg.....</h2>
+        <p>Jangan di-close dulu ya, aku mau ngomong sesuatu...</p>
+        <button class="btn-next" onclick="nextSlide(2)">Next >></button>
+    </div>
+
+    <div class="card" id="slide2">
+      <center><div class="img-card">
+        <img src="bunga2.gif" class="gambar">
+      </div></center>
+        <h2>Maafin Aku Ya...</h2>
+        <p>Akuu tauu aku salah banget tadii. Tapii akuu ga sengaja bermaksud gituu koo...</p>
+        <button class="btn-next" onclick="nextSlide(3)">Next >></button>
+    </div>
+
+    <div class="card" id="slide3">
+      <center><div class="img-card">
+        <img src="bunga2.gif" class="gambar">
+      </div></center>
+        <h2>Maafin Akuu Yaaa....</h2>
+        <p>Maafinn akuuu yaa kaloo sering bikinn kamuuu badmood</p>
+        <button class="btn-next" onclick="showFinal()">Lanjut >></button>
+    </div>
+
+    <div id="final-screen">
+        <div class="img-container">
+            <img class="img-last" src="nisa.jpg" alt="Kita">
+        </div>
+        <h2>Jadi, Baikan yaaa? ❤️</h2>
+        <p>Maafinn akuu yaa kalooo ngeselinnn, sering bikinn kamuu badmood. Tapiii sebenernyaa akuu sayanggg bangettt koo samaaa kamuuu. Kamuu selaluu jadii satu-satunya dihatii akuuu. Mauu sampeee kapann kamuu marahh² terusss?? gaa capeee?? Maafinn Akuuu Yaa Sayanggg</p>
+        <div class="buttons">
+            <button class="action-btn" id="btn-yes" onclick="terimaMaaf()">Iya Sayang</button>
+            <button class="action-btn" id="btn-no" onmouseover="kabur()" onclick="kabur()">Gak Mau</button>
+        </div>
+    </div>
+
+    <script>
+        // Fungsi ganti slide
+        function nextSlide(number) {
+            // Sembunyiin semua card
+            var cards = document.querySelectorAll('.card');
+            cards.forEach(c => c.classList.remove('active'));
+            
+            // Munculin card target
+            var target = document.getElementById('slide' + number);
+            if(target) {
+                target.classList.add('active');
+            }
+        }
+
+        // Fungsi munculin bagian akhir
+        function showFinal() {
+            var cards = document.querySelectorAll('.card');
+            cards.forEach(c => c.style.display = 'none'); // Hapus semua card
+            document.getElementById('final-screen').style.display = 'flex'; // Munculin final
+        }
+
+        // Fungsi Tombol Kabur
+        function kabur() {
+            var btnNo = document.getElementById("btn-no");
+            // Batas area gerak biar gak terlalu jauh
+            var x = Math.random() * (window.innerWidth - 150); 
+            var y = Math.random() * (window.innerHeight - 150);
+            
+            // Pastiin posisi fixed biar gerak bebas
+            btnNo.style.position = 'fixed'; 
+            btnNo.style.left = x + "px";
+            btnNo.style.top = y + "px";
+        }
+
+        // Fungsi Terima Maaf (WA)
+        function terimaMaaf() {
+            // GANTI NOMOR WA DI SINI (Format: 628xxx)
+            var nomorWA = "628191660462#"; 
+            var pesan = "Iyaaa%20akuu%20maafin%20kok%20sayanggg,%20jangan%20diulanginn%20lagii%20yaaa!";
+            
+            alert("Yeay! Love you! ❤️ Langsung ke WA ya!");
+            window.location.href = "https://wa.me/" + nomorWA + "?text=" + pesan;
+        }
+    </script>
+
+</body>
+</html>
